@@ -1,0 +1,9 @@
+.label {
+  color: orange;
+}
+
+.check {
+  &.checked {
+    background-color: blue;
+  }
+}
