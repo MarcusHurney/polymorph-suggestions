@@ -22,8 +22,6 @@ export class AppContainer extends Component {
       return null;
     }
 
-    const mixedDefaultAndCustom = { ...styles, title: custom.title };
-
     return (
       <div>
         <h1>Checkbox with default theme</h1>
