@@ -26,20 +26,6 @@ export class AppContainer extends Component {
 
     return (
       <div>
-        <h1>Default styles only</h1>
-        <div className={styles.container}>
-          <h1 className={styles.title}>Yo</h1>
-        </div>
-
-        <br />
-
-        <h1>Mixed styles with unique class names</h1>
-        <div className={mixedDefaultAndCustom.container}>
-          <h1 className={mixedDefaultAndCustom.title}>Yo</h1>
-        </div>
-
-        <br />
-
         <h1>Checkbox with default theme</h1>
         <div style={{ height: '300px', width: '300px' }}>
           <Checkbox
@@ -49,6 +35,8 @@ export class AppContainer extends Component {
             skin={CheckboxSimpleSkin}
           />
         </div>
+
+        <br />
 
         <h1>Checkbox with custom and default themes composed together</h1>
         <div style={{ height: '300px', width: '300px' }}>
