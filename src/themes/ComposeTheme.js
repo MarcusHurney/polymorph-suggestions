@@ -2,7 +2,11 @@ import React from 'react';
 
 export default ({ skin: Skin, theme: customTheme, defaultTheme, ...rest }) => {
   const composeCustomCheckboxTheme = (customTheme, defaultTheme) => {
-    // checkBoxThemeAPI is an Object which implements the correct shape of a checkbox theme
+    // Each component offered in the React-Polymorph library could have a ThemeAPI
+    // which is an Object/Class which implements the correct shape of a theme for its
+    // corresponding component. Here I've just defined checkBoxThemeAPI in the body
+    // of this function, but these could be separated out for each base component in the library
+
     let checkBoxThemeAPI = {
       root: '',
       input: '',
