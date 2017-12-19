@@ -1,10 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import store from 'store';
-import routes from 'routes';
+import App from './app';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 render(
-  <Provider store={store}>{routes}</Provider>,
+  <BrowserRouter>
+    <Switch>
+      <Route path="/" component={App} />
+    </Switch>
+  </BrowserRouter>,
   document.getElementById('react')
 );

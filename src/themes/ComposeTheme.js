@@ -1,37 +1,39 @@
 import React from 'react';
 
-export default ({ skin: Skin, theme: customTheme, defaultTheme, ...rest }) => {
-  const composeCustomCheckboxTheme = (customTheme, defaultTheme) => {
+export default ({
+  skin: Skin,
+  theme: customTheme,
+  defaultTheme,
+  themeAPI,
+  ...rest
+}) => {
+  const composeCustomCheckboxTheme = (customTheme, defaultTheme, themeAPI) => {
     // Each component offered in the React-Polymorph library could have a ThemeAPI
-    // which is an Object/Class which implements the correct shape of a theme for its
-    // corresponding component. Here I've just defined checkBoxThemeAPI in the body
-    // of this function, but these could be separated out for each base component in the library
+    // which is an Object indicating the correct shape of a theme for its
+    // corresponding component. This makes the ComposeTheme function reusable
+    // for any component in the library.
 
-    let checkBoxThemeAPI = {
-      root: '',
-      input: '',
-      check: '',
-      checked: '',
-      disabled: '',
-      label: ''
-    };
+    let composedTheme = { ...themeAPI };
 
-    for (const property in checkBoxThemeAPI) {
+    for (const property in themeAPI) {
       if (defaultTheme.hasOwnProperty(property)) {
-        checkBoxThemeAPI[property] += defaultTheme[property];
+        composedTheme[property] += defaultTheme[property];
       }
 
       if (customTheme.hasOwnProperty(property)) {
-        checkBoxThemeAPI[property] += ' ' + customTheme[property];
+        composedTheme[property] += ' ' + customTheme[property];
       }
 
-      checkBoxThemeAPI[property].trim();
+      composedTheme[property].trim();
     }
 
-    return checkBoxThemeAPI;
+    return composedTheme;
   };
 
-  const composedTheme = composeCustomCheckboxTheme(customTheme, defaultTheme);
-
-  return <Skin theme={composedTheme} {...rest} />;
+  return (
+    <Skin
+      theme={composeCustomCheckboxTheme(customTheme, defaultTheme, themeAPI)}
+      {...rest}
+    />
+  );
 };

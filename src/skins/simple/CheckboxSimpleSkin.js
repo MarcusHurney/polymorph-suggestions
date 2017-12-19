@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import { pickDOMProps } from '../../../utils/props';
+import { pickDOMProps } from '../../utils/props';
 
 const CheckboxSimpleSkin = props => {
   return (

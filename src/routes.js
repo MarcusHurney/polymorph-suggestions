@@ -1,18 +1,13 @@
 import React from 'react';
-import { Switch, Route } from 'react-router';
-import { ConnectedRouter } from 'connected-react-router';
-import { history } from 'store/index';
-import Layout from 'containers/layout';
-import App from 'containers/app';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import app from './app';
 
 const routes = (
-  <ConnectedRouter history={history}>
-    <Layout>
-      <Switch>
-        <Route exact path="/" component={App} />
-      </Switch>
-    </Layout>
-  </ConnectedRouter>
+  <BrowserRouter>
+    <Switch>
+      <Route path="/" component={app} />
+    </Switch>
+  </BrowserRouter>
 );
 
 export default routes;
