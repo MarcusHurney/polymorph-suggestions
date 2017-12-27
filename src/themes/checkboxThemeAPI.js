@@ -1,4 +1,4 @@
-export const CheckboxThemeAPI = {
+export const checkboxThemeAPI = {
   root: '',
   input: '',
   check: '',

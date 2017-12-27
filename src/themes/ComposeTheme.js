@@ -1,18 +1,19 @@
-import React from 'react';
+import _ from 'lodash';
 
-export default ({
-  skin: Skin,
-  theme: customTheme,
-  defaultTheme,
-  themeAPI,
-  ...rest
-}) => {
-  const composeCustomCheckboxTheme = (customTheme, defaultTheme, themeAPI) => {
-    // Each component offered in the React-Polymorph library could have a ThemeAPI
-    // which is an Object indicating the correct shape of a theme for its
-    // corresponding component. This makes the ComposeTheme function reusable
-    // for any component in the library.
+// Each component offered in the React-Polymorph library could have a Theme API
+// which is an Object indicating the correct shape of a theme for its
+// corresponding skin. This makes the composeTheme function reusable
+// for composing a custom theme with a defaultTheme for any component in the library.
 
+// composeTheme utility function
+export default (defaultTheme = {}, customTheme = {}, themeAPI = {}) => {
+  // check to see if customTheme is an empty object
+  // if it is, return the defaultTheme
+  // if it is not, compose customTheme and defaultTheme
+
+  if (_.isEmpty(customTheme)) {
+    return defaultTheme;
+  } else {
     let composedTheme = { ...themeAPI };
 
     for (const property in themeAPI) {
@@ -26,14 +27,6 @@ export default ({
 
       composedTheme[property].trim();
     }
-
     return composedTheme;
-  };
-
-  return (
-    <Skin
-      theme={composeCustomCheckboxTheme(customTheme, defaultTheme, themeAPI)}
-      {...rest}
-    />
-  );
+  }
 };

@@ -1,0 +1,10 @@
+.input {
+  background-color: purple;
+  font-family: cursive;
+  color: teal;
+  width: 500px;
+
+  &:focus {
+    border-color: blue;
+  }
+}
