@@ -88,10 +88,17 @@ class App extends Component {
     // I pass the entire simpleTheme object below, but it doesn't contain css for all components yet
     return (
       <div>
+        <h5>Here is a title outside ThemeProvider, concerns are separated</h5>
         <ThemeProvider
           theme={simpleTheme}
           render={({ theme }) => (
             <div>
+              <h1>
+                ThemeProvider code starts here ------------ * ------------
+              </h1>
+
+              <br />
+
               <h4>Checkbox with theme set to Simple via ThemeProvider</h4>
               <div className={styles.divider}>
                 <Checkbox
@@ -170,9 +177,15 @@ class App extends Component {
                   )}
                 />
               </div>
+              <h1>ThemeProvider code ends here ------------ * ------------</h1>
             </div>
           )}
         />
+
+        <h5>
+          Here is another element outside of ThemeProvider No need to worry
+          about me, minding my own business down here
+        </h5>
       </div>
     );
   }
