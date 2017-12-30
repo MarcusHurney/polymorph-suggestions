@@ -6,15 +6,15 @@ import { simpleTheme } from '../themes/simple';
 
 // import FormField component and a skin (Simple)
 import FormField from '../components/FormField';
-import FormFieldSimpleSkin from '../skins/simple/FormFieldSimpleSkin';
+import FormFieldSimpleSkin from '../skins/simple/FormField';
 
 // import Input component and a skin (Simple)
 import Input from '../components/Input';
-import InputSimpleSkin from '../skins/simple/InputSimpleSkin';
+import InputSimpleSkin from '../skins/simple/Input';
 
 // import Checkbox component and a skin (Simple)
 import Checkbox from '../components/Checkbox';
-import CheckboxSimpleSkin from '../skins/simple/CheckboxSimpleSkin';
+import CheckboxSimpleSkin from '../skins/simple/Checkbox';
 
 // import custom themes for this demo
 // these mimic how a user would create some custom css/scss files

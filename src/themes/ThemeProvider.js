@@ -4,17 +4,18 @@ import PropTypes from 'prop-types';
 export default class ThemeProvider extends Component {
   static propTypes = {
     theme: PropTypes.object,
-    defaultTheme: PropTypes.object
+    themeOverrides: PropTypes.object
   };
 
   static defaultProps = {
     theme: {},
-    defaultTheme: {}
+    themeOverrides: {}
   };
 
   render() {
-    const { theme } = this.props;
-    console.log(theme);
+    const { theme, themeOverrides } = this.props;
+    // const composedTheme = composeTheme(theme, themeOverrides, themeAPI);
+
     return this.props.render({ theme });
   }
 }
