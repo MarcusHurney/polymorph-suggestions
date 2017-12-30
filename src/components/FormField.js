@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { StringOrElement } from '../utils/props';
 
-// import the reusable composeTheme utility function
-import composeTheme from '../themes/composeTheme.js';
+// import the composeTheme utility function
+import composeTheme from '../themes/utils/composeTheme.js';
 
-// import the FormField component's default theme
-import defaultFormFieldTheme from '../themes/simple/defaultFormFieldTheme.scss';
-
-// import the FormField component's constant theme api
-import { formfieldThemeAPI } from '../themes/formfieldThemeAPI.js';
+// import the FormField component's constant theme API
+import { formfieldThemeAPI } from '../themes/API/formField.js';
 
 class FormField extends Component {
   static propTypes = {
@@ -18,15 +15,15 @@ class FormField extends Component {
     label: StringOrElement,
     disabled: PropTypes.bool,
     error: StringOrElement,
-    theme: PropTypes.object, // this is the user's custom theme which defaults to a defaultTheme
-    defaultTheme: PropTypes.object,
+    theme: PropTypes.object,
+    themeOverrides: PropTypes.object,
     themeAPI: PropTypes.object
   };
 
   static defaultProps = {
     disabled: false,
-    theme: {},
-    defaultTheme: defaultFormFieldTheme,
+    theme: {}, // theme will now be passed along via the ThemeProvider
+    themeOverrides: {}, // custom css/scss from user that adheres to React Polymorph theme API
     themeAPI: { ...formfieldThemeAPI }
   };
 
@@ -36,15 +33,15 @@ class FormField extends Component {
 
     const {
       skin: FormFieldSkin,
-      theme: customTheme,
-      defaultTheme,
+      theme,
+      themeOverrides,
       themeAPI,
       ...rest
     } = this.props;
 
     return (
       <FormFieldSkin
-        theme={composeTheme(defaultTheme, customTheme, themeAPI)}
+        theme={composeTheme(theme, themeOverrides, themeAPI)}
         {...rest}
       />
     );

@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-// import helpers
+// import utils
 import { StringOrElement } from '../utils/props.js';
 
-// import the reusable composeTheme utility function
-import composeTheme from '../themes/composeTheme.js';
+// import the composeTheme utility function
+import composeTheme from '../themes/utils/composeTheme.js';
 
-// import the Checkbox component's constant theme api
-import { checkboxThemeAPI } from '../themes/checkboxThemeAPI.js';
-
-// import the Checkbox component's default theme
-import defaultCheckboxTheme from '../themes/simple/defaultCheckboxTheme.scss';
+// import the Checkbox component's constant theme API
+import { checkboxThemeAPI } from '../themes/API/checkbox.js';
 
 class Checkbox extends Component {
   static propTypes = {
@@ -22,30 +19,30 @@ class Checkbox extends Component {
     onBlur: PropTypes.func,
     skin: PropTypes.func.isRequired,
     theme: PropTypes.object,
-    defaultTheme: PropTypes.object,
+    themeOverrides: PropTypes.object,
     themeAPI: PropTypes.object
   };
 
   static defaultProps = {
     checked: false,
     disabled: false,
-    theme: {},
-    defaultTheme: defaultCheckboxTheme,
+    theme: {}, // theme will now be passed along via the ThemeProvider
+    themeOverrides: {}, // custom css/scss from user that adheres to React Polymorph theme API
     themeAPI: { ...checkboxThemeAPI }
   };
 
   render() {
     const {
       skin: CheckboxSkin,
-      theme: customTheme,
-      defaultTheme,
+      theme,
+      themeOverrides,
       themeAPI,
       ...rest
     } = this.props;
 
     return (
       <CheckboxSkin
-        theme={composeTheme(defaultTheme, customTheme, themeAPI)}
+        theme={composeTheme(theme, themeOverrides, themeAPI)}
         {...rest}
       />
     );

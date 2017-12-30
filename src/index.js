@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './app';
+import App from './demo/app';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 render(

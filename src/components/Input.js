@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isString, flow } from 'lodash';
 
-// import the reusable ComposeTheme
-import composeTheme from '../themes/composeTheme.js';
+// import the composeTheme utility function
+import composeTheme from '../themes/utils/composeTheme.js';
 
-// import the Checkbox component's default theme
-import defaultInputTheme from '../themes/simple/defaultInputTheme.scss';
-
-// import the Input component's constant theme api
-import { inputThemeAPI } from '../themes/inputThemeAPI.js';
+// import the Input component's constant theme API
+import { inputThemeAPI } from '../themes/API/input.js';
 
 class Input extends Component {
   static propTypes = {
@@ -23,7 +20,7 @@ class Input extends Component {
     readOnly: PropTypes.bool,
     skin: PropTypes.func.isRequired,
     theme: PropTypes.object,
-    defaultTheme: PropTypes.object,
+    themeOverrides: PropTypes.object,
     themeAPI: PropTypes.object
   };
 
@@ -32,8 +29,8 @@ class Input extends Component {
     onFocus: () => {},
     onBlur: () => {},
     value: '',
-    theme: {},
-    defaultTheme: defaultInputTheme,
+    theme: {}, // theme will now be passed along via the ThemeProvider
+    themeOverrides: {}, // custom css/scss from user that adheres to React Polymorph theme API
     themeAPI: { ...inputThemeAPI }
   };
 
@@ -76,15 +73,18 @@ class Input extends Component {
 
     const {
       skin: InputSkin,
-      theme: customTheme,
-      defaultTheme,
+      theme,
+      themeOverrides,
       themeAPI,
       ...rest
     } = this.props;
 
-    const composedTheme = composeTheme(defaultTheme, customTheme, themeAPI);
-
-    return <InputSkin theme={composedTheme} {...rest} />;
+    return (
+      <InputSkin
+        theme={composeTheme(theme, themeOverrides, themeAPI)}
+        {...rest}
+      />
+    );
   }
 }
 
