@@ -85,6 +85,7 @@ class App extends Component {
     // const destructuredSimpleTheme = {...simpleTheme.checkbox, ...simpleTheme.input};
     // pass it to ThemeProvider like this --> theme={destructuredSimpleTheme}
     // this way you don't have to pass the entire theme object along to ThemeProvider
+    // I pass the entire simpleTheme object below, but it doesn't contain css for all components yet
     return (
       <div>
         <ThemeProvider
