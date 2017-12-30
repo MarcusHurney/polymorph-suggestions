@@ -24,6 +24,9 @@ import CheckboxSimpleSkin from '../skins/simple/Checkbox';
 import customFormFieldTheme from './customThemes/customFormFieldTheme.scss';
 import customInputTheme from './customThemes/customInputTheme.scss';
 import customCheckboxTheme from './customThemes/customCheckboxTheme.scss';
+import moreCustomCheckbox from './customThemes/moreCustomCheckbox.scss';
+
+import { simpleThemeOverrides } from './customThemes';
 
 // styles for demo
 import styles from './app.scss';
@@ -88,21 +91,22 @@ class App extends Component {
     // I pass the entire simpleTheme object below, but it doesn't contain css for all components yet
     return (
       <div>
-        <h5>Here is a title outside ThemeProvider, concerns are separated</h5>
         <ThemeProvider
           theme={simpleTheme}
-          render={({ theme }) => (
+          themeOverrides={simpleThemeOverrides}
+          render={({ theme: simpleTheme, composedTheme }) => (
             <div>
-              <h1>
+              <h2>
                 ThemeProvider code starts here ------------ * ------------
-              </h1>
+              </h2>
 
+              <br />
               <br />
 
               <h4>Checkbox with theme set to Simple via ThemeProvider</h4>
               <div className={styles.divider}>
                 <Checkbox
-                  theme={theme.checkbox}
+                  theme={simpleTheme.checkbox}
                   skin={CheckboxSimpleSkin}
                   checked={this.state.defaultBox}
                   onChange={this.handleDefaultToggle}
@@ -120,8 +124,7 @@ class App extends Component {
 
               <div className={styles.divider}>
                 <Checkbox
-                  theme={theme.checkbox}
-                  themeOverrides={customCheckboxTheme}
+                  theme={composedTheme.checkbox}
                   skin={CheckboxSimpleSkin}
                   checked={this.state.customBox}
                   onChange={this.handleCustomToggle}
@@ -138,12 +141,12 @@ class App extends Component {
 
               <div className={styles.divider}>
                 <FormField
-                  theme={theme.formField}
+                  theme={simpleTheme.formField}
                   skin={FormFieldSimpleSkin}
                   label={'Name'}
                   render={props => (
                     <Input
-                      theme={theme.input}
+                      theme={simpleTheme.input}
                       skin={InputSimpleSkin}
                       value={this.state.defaultInputValue}
                       onChange={this.handleDefaultInputChange}
@@ -162,14 +165,12 @@ class App extends Component {
 
               <div className={styles.divider}>
                 <FormField
-                  theme={theme.formField}
-                  themeOverrides={customFormFieldTheme}
+                  theme={composedTheme.formField}
                   skin={FormFieldSimpleSkin}
                   label={'Favorite Book'}
                   render={props => (
                     <Input
-                      theme={theme.input}
-                      themeOverrides={customInputTheme}
+                      theme={composedTheme.input}
                       skin={InputSimpleSkin}
                       value={this.state.customInputValue}
                       onChange={this.handleCustomInputChange}
@@ -177,15 +178,37 @@ class App extends Component {
                   )}
                 />
               </div>
-              <h1>ThemeProvider code ends here ------------ * ------------</h1>
+              <h2>ThemeProvider code ends here ------------ * ------------</h2>
             </div>
           )}
         />
 
-        <h5>
-          Here is another element outside of ThemeProvider No need to worry
-          about me, minding my own business down here
-        </h5>
+        <br />
+        <br />
+
+        <h2>
+          Now let's pretend a user isn't using ThemeProvider, but still wants to
+          use simple theme composed with their own CSS for a component
+        </h2>
+
+        <h4>
+          Checkbox with a composed theme: the "theme" prop of this component is
+          set to simple theme's checkbox property. The user's custom css
+          definitions are set via the "themeOverrides" prop. Simple theme's
+          checkbox css and the user's custom css are composed successfully
+          without using ThemeProvider! Yessss!
+        </h4>
+
+        <div className={styles.divider}>
+          <Checkbox
+            theme={simpleTheme.checkbox}
+            themeOverrides={moreCustomCheckbox}
+            skin={CheckboxSimpleSkin}
+            checked={this.state.customBox}
+            onChange={this.handleCustomToggle}
+            label="My checkbox"
+          />
+        </div>
       </div>
     );
   }

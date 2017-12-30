@@ -3,7 +3,7 @@ import _ from 'lodash';
 // Each component offered in the React-Polymorph library could have a Theme API
 // which is an Object indicating the correct shape of a theme for its
 // corresponding skin. This makes the composeTheme function reusable
-// for composing a custom theme with a theme for any component in the library.
+// for composing a custom theme with a built in theme (such as the Simple theme)
 
 // composeTheme utility function
 export default (theme = {}, themeOverrides = {}, themeAPI = {}) => {

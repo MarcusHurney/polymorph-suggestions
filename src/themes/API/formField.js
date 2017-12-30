@@ -1,4 +1,4 @@
-export const formfieldThemeAPI = {
+export const formFieldThemeAPI = {
   root: '',
   label: '',
   error: '',

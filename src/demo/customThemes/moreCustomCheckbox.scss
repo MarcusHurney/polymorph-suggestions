@@ -1,0 +1,9 @@
+.label {
+  text-transform: uppercase;
+}
+
+.check {
+  &.checked {
+    background-color: pink;
+  }
+}
