@@ -3,13 +3,14 @@ import classnames from 'classnames';
 import { pickDOMProps } from '../../utils/props';
 
 export default props => (
-  <input
-    ref={props.inputRef}
+  <button
     {...pickDOMProps(props)}
     className={classnames([
-      props.theme.input,
-      props.disabled ? props.theme.disabled : null,
-      props.error ? props.theme.errored : null
+      props.className,
+      props.theme.root,
+      props.disabled ? props.theme.disabled : null
     ])}
-  />
+  >
+    {props.label}
+  </button>
 );

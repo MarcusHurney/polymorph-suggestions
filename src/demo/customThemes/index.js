@@ -1,5 +1,13 @@
-import formField from './customFormFieldTheme.scss';
-import input from './customInputTheme.scss';
-import checkbox from './customCheckboxTheme.scss';
+import formField from './formField.scss';
+import input from './input.scss';
+import checkbox from './checkbox.scss';
+import textArea from './textArea.scss';
+import button from './button.scss';
 
-export const simpleThemeOverrides = { formField, input, checkbox };
+export const simpleThemeOverrides = {
+  formField,
+  input,
+  checkbox,
+  textArea,
+  button
+};

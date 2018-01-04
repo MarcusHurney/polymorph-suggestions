@@ -19,9 +19,6 @@ export default props => (
         {props.label}
       </label>
     )}
-    <div className={props.theme.inputWrapper}>
-      {/* {props.render({ ...props, parent: this })} */}
-      {props.render(props)}
-    </div>
+    <div className={props.theme.inputWrapper}>{props.render(props)}</div>
   </div>
 );

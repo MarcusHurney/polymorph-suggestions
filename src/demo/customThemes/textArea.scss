@@ -1,0 +1,7 @@
+.textarea {
+  width: 400px;
+
+  &:focus {
+    border: 3px dotted green;
+  }
+}

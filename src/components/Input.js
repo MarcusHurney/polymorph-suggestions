@@ -10,6 +10,7 @@ import { inputThemeAPI } from '../themes/API/input.js';
 
 class Input extends Component {
   static propTypes = {
+    autoFocus: PropTypes.bool,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
@@ -25,14 +26,18 @@ class Input extends Component {
   };
 
   static defaultProps = {
-    onChange: () => {},
-    onFocus: () => {},
-    onBlur: () => {},
+    autoFocus: false,
     value: '',
     theme: {}, // theme will now be passed along via the ThemeProvider
     themeOverrides: {}, // custom css/scss from user that adheres to React Polymorph theme API
     themeAPI: { ...inputThemeAPI }
   };
+
+  componentDidMount() {
+    if (this.props.autoFocus) {
+      this._focus();
+    }
+  }
 
   onChange = event => {
     const { onChange, disabled } = this.props;
@@ -44,9 +49,7 @@ class Input extends Component {
   //
   // blur = () => this.skinParts[Input.SKIN_PARTS.INPUT].blur();
 
-  focus = () => {};
-
-  blur = () => {};
+  _focus = () => this.inputElement.focus();
 
   _processValue(value) {
     return flow([this._enforceStringValue, this._enforceMaxLength]).call(
@@ -81,6 +84,7 @@ class Input extends Component {
 
     return (
       <InputSkin
+        inputRef={el => (this.inputElement = el)}
         theme={composeTheme(theme, themeOverrides, themeAPI)}
         {...rest}
       />

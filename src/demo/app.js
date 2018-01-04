@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // import ThemeProvider and a full Theme (as an object) to pass as a prop
 import ThemeProvider from '../themes/ThemeProvider';
 import { simpleTheme } from '../themes/simple';
+import { mountainTheme } from '../themes/mountain';
 
 // import FormField component and a skin (Simple)
 import FormField from '../components/FormField';
@@ -16,15 +17,21 @@ import InputSimpleSkin from '../skins/simple/Input';
 import Checkbox from '../components/Checkbox';
 import CheckboxSimpleSkin from '../skins/simple/Checkbox';
 
+// import Checkbox component and a skin (Simple)
+import TextArea from '../components/TextArea';
+import TextAreaSimpleSkin from '../skins/simple/TextArea';
+
+// import Button component and a skin (Simple)
+import Button from '../components/Button';
+import ButtonSimpleSkin from '../skins/simple/Button';
+
 // import custom themes for this demo
 // these mimic how a user would create some custom css/scss files
 // that will get composed with a theme (in this case we only have the simple theme)
 // calling these custom 'themes' is really a misnomer because they are just scss
 // files that adhere to each React Polymorph component's theme API (see the themes/API files)
-import customFormFieldTheme from './customThemes/customFormFieldTheme.scss';
-import customInputTheme from './customThemes/customInputTheme.scss';
-import customCheckboxTheme from './customThemes/customCheckboxTheme.scss';
-import moreCustomCheckbox from './customThemes/moreCustomCheckbox.scss';
+
+import checkbox2 from './customThemes/checkbox2.scss';
 
 import { simpleThemeOverrides } from './customThemes';
 
@@ -35,8 +42,9 @@ class App extends Component {
   state = {
     defaultBox: false,
     customBox: false,
-    defaultInputValue: '',
-    customInputValue: ''
+    input1: '',
+    input2: '',
+    textArea: ''
   };
 
   handleDefaultToggle = () => {
@@ -55,7 +63,7 @@ class App extends Component {
     e.persist();
 
     this.setState(state => {
-      return { ...state, defaultInputValue: e.target.value };
+      return { ...state, input1: e.target.value };
     });
   };
 
@@ -63,8 +71,36 @@ class App extends Component {
     e.persist();
 
     this.setState(state => {
-      return { ...state, customInputValue: e.target.value };
+      return { ...state, input2: e.target.value };
     });
+  };
+
+  handleCustomInputBlur = () => {
+    console.log('You blurred the input component that has a custom theme!');
+  };
+
+  handleCustomInputFocus = () => {
+    console.log('You focused the input component that has a custom theme!');
+  };
+
+  handleTextAreaChange = e => {
+    e.persist();
+
+    this.setState(state => {
+      return { ...state, textArea: e.target.value };
+    });
+  };
+
+  handleTextAreaBlur = () => {
+    console.log('TextArea: Come on bro, You blurred me!');
+  };
+
+  handleTextAreaFocus = () => {
+    console.log('TextArea: Come on bro, You focused me!');
+  };
+
+  handleButtonClick = () => {
+    alert('You clicked the simple button!');
   };
 
   render() {
@@ -103,7 +139,7 @@ class App extends Component {
               <br />
               <br />
 
-              <h4>Checkbox with theme set to Simple via ThemeProvider</h4>
+              <h4>Checkbox with theme set to Simple</h4>
               <div className={styles.divider}>
                 <Checkbox
                   theme={simpleTheme.checkbox}
@@ -116,11 +152,7 @@ class App extends Component {
 
               <br />
 
-              <h4>
-                Checkbox with a composed theme: Simple theme set via
-                ThemeProvider and custom themes from user set via the
-                themeOverrides prop
-              </h4>
+              <h4>Checkbox with a composed theme</h4>
 
               <div className={styles.divider}>
                 <Checkbox
@@ -134,10 +166,7 @@ class App extends Component {
 
               <br />
 
-              <h4>
-                FormField + nested Input with themes set to Simple via
-                ThemeProvider
-              </h4>
+              <h4>FormField + nested Input with themes set to Simple</h4>
 
               <div className={styles.divider}>
                 <FormField
@@ -148,7 +177,7 @@ class App extends Component {
                     <Input
                       theme={simpleTheme.input}
                       skin={InputSimpleSkin}
-                      value={this.state.defaultInputValue}
+                      value={this.state.input1}
                       onChange={this.handleDefaultInputChange}
                     />
                   )}
@@ -157,11 +186,7 @@ class App extends Component {
 
               <br />
 
-              <h4>
-                Formfield + nested Input with a composed theme: Simple theme set
-                via ThemeProvider and custom themes from user set via the
-                themeOverrides prop
-              </h4>
+              <h4>Formfield + nested Input with a composed theme</h4>
 
               <div className={styles.divider}>
                 <FormField
@@ -172,12 +197,52 @@ class App extends Component {
                     <Input
                       theme={composedTheme.input}
                       skin={InputSimpleSkin}
-                      value={this.state.customInputValue}
+                      autoFocus={true}
+                      value={this.state.input2}
                       onChange={this.handleCustomInputChange}
+                      onFocus={this.handleCustomInputFocus}
+                      onBlur={this.handleCustomInputBlur}
                     />
                   )}
                 />
               </div>
+
+              <br />
+
+              <h4>Formfield + nested TextArea with a composed theme</h4>
+
+              <div className={styles.divider}>
+                <FormField
+                  theme={composedTheme.formField}
+                  skin={FormFieldSimpleSkin}
+                  label={'Your motivation'}
+                  render={props => (
+                    <TextArea
+                      theme={composedTheme.textArea}
+                      skin={TextAreaSimpleSkin}
+                      value={this.state.textArea}
+                      rows={4}
+                      onChange={this.handleTextAreaChange}
+                      onBlur={this.handleTextAreaBlur}
+                      onFocus={this.handleTextAreaFocus}
+                    />
+                  )}
+                />
+              </div>
+
+              <br />
+
+              <h4>Button with a composed theme</h4>
+
+              <div className={styles.divider}>
+                <Button
+                  theme={composedTheme.button}
+                  skin={ButtonSimpleSkin}
+                  label="Simple Button"
+                  onClick={this.handleButtonClick}
+                />
+              </div>
+
               <h2>ThemeProvider code ends here ------------ * ------------</h2>
             </div>
           )}
@@ -202,7 +267,7 @@ class App extends Component {
         <div className={styles.divider}>
           <Checkbox
             theme={simpleTheme.checkbox}
-            themeOverrides={moreCustomCheckbox}
+            themeOverrides={checkbox2}
             skin={CheckboxSimpleSkin}
             checked={this.state.customBox}
             onChange={this.handleCustomToggle}
